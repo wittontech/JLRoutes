@@ -47,29 +47,29 @@
         NSString *path = [components percentEncodedPath];
         
         // handle fragment if needed
-        if (components.fragment != nil) {
-            BOOL fragmentContainsQueryParams = NO;
-            NSURLComponents *fragmentComponents = [NSURLComponents componentsWithString:components.percentEncodedFragment];
-            
-            if (fragmentComponents.query == nil && fragmentComponents.path != nil) {
-                fragmentComponents.query = fragmentComponents.path;
-            }
-            
-            if (fragmentComponents.queryItems.count > 0) {
-                // determine if this fragment is only valid query params and nothing else
-                fragmentContainsQueryParams = fragmentComponents.queryItems.firstObject.value.length > 0;
-            }
-            
-            if (fragmentContainsQueryParams) {
-                // include fragment query params in with the standard set
-                components.queryItems = [(components.queryItems ?: @[]) arrayByAddingObjectsFromArray:fragmentComponents.queryItems];
-            }
-            
-            if (fragmentComponents.path != nil && (!fragmentContainsQueryParams || ![fragmentComponents.path isEqualToString:fragmentComponents.query])) {
-                // handle fragment by include fragment path as part of the main path
-                path = [path stringByAppendingString:[NSString stringWithFormat:@"#%@", fragmentComponents.percentEncodedPath]];
-            }
-        }
+//        if (components.fragment != nil) {
+//            BOOL fragmentContainsQueryParams = NO;
+//            NSURLComponents *fragmentComponents = [NSURLComponents componentsWithString:components.percentEncodedFragment];
+//
+//            if (fragmentComponents.query == nil && fragmentComponents.path != nil) {
+//                fragmentComponents.query = fragmentComponents.path;
+//            }
+//
+//            if (fragmentComponents.queryItems.count > 0) {
+//                // determine if this fragment is only valid query params and nothing else
+//                fragmentContainsQueryParams = fragmentComponents.queryItems.firstObject.value.length > 0;
+//            }
+//
+//            if (fragmentContainsQueryParams) {
+//                // include fragment query params in with the standard set
+//                components.queryItems = [(components.queryItems ?: @[]) arrayByAddingObjectsFromArray:fragmentComponents.queryItems];
+//            }
+//
+//            if (fragmentComponents.path != nil && (!fragmentContainsQueryParams || ![fragmentComponents.path isEqualToString:fragmentComponents.query])) {
+//                // handle fragment by include fragment path as part of the main path
+//                path = [path stringByAppendingString:[NSString stringWithFormat:@"#%@", fragmentComponents.percentEncodedPath]];
+//            }
+//        }
         
         // strip off leading slash so that we don't have an empty first path component
         if (path.length > 0 && [path characterAtIndex:0] == '/') {
